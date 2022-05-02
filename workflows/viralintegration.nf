@@ -49,6 +49,7 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 include { FASTQC                      } from '../modules/nf-core/modules/fastqc/main'
 include { SAMTOOLS_FAIDX              } from '../modules/nf-core/modules/samtools/faidx/main'
 include { STAR_GENOMEGENERATE         } from '../modules/nf-core/modules/star/genomegenerate/main'
+include { STAR_ALIGN                  } from '../modules/nf-core/modules/star/align/main'
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
 
@@ -93,6 +94,15 @@ workflow VIRALINTEGRATION {
 
     STAR_GENOMEGENERATE (
         fasta, gtf
+    )
+
+    STAR_ALIGN(
+        INPUT_CHECK.out.reads, 
+        STAR_GENOMEGENERATE.out.index,
+        gtf,
+        false,
+        "illumina",
+        false
     )
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
