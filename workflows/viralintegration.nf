@@ -62,6 +62,7 @@ include { SAMTOOLS_SORT               } from '../modules/nf-core/modules/samtool
 include { SAMTOOLS_INDEX              } from '../modules/nf-core/modules/samtools/index/main'
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
+include { METAPHLAN3                  } from '../modules/nf-core/modules/metaphlan3/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -180,6 +181,14 @@ workflow VIRALINTEGRATION {
     )
     multiqc_report = MULTIQC.out.report.toList()
     ch_versions    = ch_versions.mix(MULTIQC.out.versions)
+
+    // 
+    // MODULE: MetaPhlAn3
+    // TODO: ch_star_unmapped is not yet defined
+    //METAPHLAN3 (
+    //    ch_star_unmapped
+    //)
+
 }
 
 /*
